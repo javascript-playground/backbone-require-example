@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shopping Cart with Backbone</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+    <div id="yourcart"></div>
+    <script id="itemTemplate" type="text/template">
+      <img src="<%= photo %>" alt="<%= title %>">
+      <div>
+        <h2><%= title %></h2>
+        <h4>&pound;<%= price %></h4>
+      </div>
+    </script>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/cart.js"></script>
+  </body>
+</html>
