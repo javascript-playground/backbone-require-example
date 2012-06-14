@@ -56,7 +56,7 @@ var ItemCollectionView = Backbone.View.extend({
     this.$el.append(itemView.render().el);
     return this;
   },
-  addItem: function(e) {
+  addItem: function() {
     var data = {};
     $("#add").children("input[type='text']").each(function(i, el) {
       data[el.id] = $(el).val();
@@ -75,7 +75,6 @@ var CartCollectionView = Backbone.View.extend({
     "submit #add": "addItem"
   },
   initialize: function() {
-    this.collection = cartCollection;
     this.itemView = new ItemCollectionView();
   },
   addItem: function(e) {
