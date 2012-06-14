@@ -1,3 +1,10 @@
+/**
+
+How do I add to a collection after initialising it?
+How can I show a filtered set of my objects?
+How do I let a user add a new item?
+
+**/
 var Item = Backbone.Model.extend({
   defaults: {
     price: 35,
@@ -22,33 +29,52 @@ var cartCollection = new Cart(items);
 var ItemView = Backbone.View.extend({
   tagName: "div",
   className: "item-wrap",
-  template: $("#itemTemplate").html(),
+  template: _.template($("#itemTemplate").html()),
 
   render: function() {
-    var templ = _.template(this.template);
-    this.$el.html(templ(this.model.toJSON()));
+    this.$el.html(this.template(this.model.toJSON()));
     return this;
   }
 });
 
 var CartCollectionView = Backbone.View.extend({
-  el: $("#yourcart"),
+  el: "body",
+  $item_wrap: $("#yourcart"),
+  events: {
+    "submit #add": "addItem"
+  },
   initialize: function() {
     this.collection = cartCollection;
     this.render();
   },
   render: function() {
+    this.$item_wrap.html("");
     this.collection.each(function(item) {
       this.renderItem(item);
     }, this);
   },
   renderItem: function(item) {
     var itemView = new ItemView({ model: item });
-    this.$el.append(itemView.render().el);
-    console.log(itemView.render().el);
+    this.$item_wrap.append(itemView.render().el);
+  },
+
+  addItem: function(e) {
+    e.preventDefault();
+
+    var data = {};
+    $("#add").children("input[type='text']").each(function(i, el) {
+      data[el.id] = $(el).val();
+    });
+
+    var newItem = new Item(data);
+
+    this.collection.add(newItem);
+    this.renderItem(newItem);
   }
 });
 
+
 $(function() {
-  var cart = new CartCollectionView();
+  var app = new CartCollectionView();
+
 });
