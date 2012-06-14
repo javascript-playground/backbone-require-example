@@ -42,28 +42,23 @@ var ItemCollectionView = Backbone.View.extend({
   initialize: function() {
     this.collection = cartCollection;
     this.render();
-    return this;
   },
   render: function() {
     this.$el.html("");
     this.collection.each(function(item) {
       this.renderItem(item);
     }, this);
-    return this;
   },
   renderItem: function(item) {
     var itemView = new ItemView({model: item});
     this.$el.append(itemView.render().el);
-    return this;
   },
   addItem: function() {
     var data = {};
     $("#add").children("input[type='text']").each(function(i, el) {
       data[el.id] = $(el).val();
     });
-
     var newItem = new Item(data);
-
     this.collection.add(newItem);
     this.renderItem(newItem);
   }
