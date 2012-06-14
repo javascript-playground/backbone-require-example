@@ -37,30 +37,26 @@ var ItemView = Backbone.View.extend({
   }
 });
 
-var CartCollectionView = Backbone.View.extend({
-  el: "body",
-  $item_wrap: $("#yourcart"),
-  events: {
-    "submit #add": "addItem"
-  },
+var ItemCollectionView = Backbone.View.extend({
+  el: '#yourcart',
   initialize: function() {
     this.collection = cartCollection;
     this.render();
+    return this;
   },
   render: function() {
-    this.$item_wrap.html("");
+    this.$el.html("");
     this.collection.each(function(item) {
       this.renderItem(item);
     }, this);
+    return this;
   },
   renderItem: function(item) {
-    var itemView = new ItemView({ model: item });
-    this.$item_wrap.append(itemView.render().el);
+    var itemView = new ItemView({model: item});
+    this.$el.append(itemView.render().el);
+    return this;
   },
-
   addItem: function(e) {
-    e.preventDefault();
-
     var data = {};
     $("#add").children("input[type='text']").each(function(i, el) {
       data[el.id] = $(el).val();
@@ -70,6 +66,21 @@ var CartCollectionView = Backbone.View.extend({
 
     this.collection.add(newItem);
     this.renderItem(newItem);
+  }
+});
+
+var CartCollectionView = Backbone.View.extend({
+  el: "body",
+  events: {
+    "submit #add": "addItem"
+  },
+  initialize: function() {
+    this.collection = cartCollection;
+    this.itemView = new ItemCollectionView();
+  },
+  addItem: function(e) {
+    e.preventDefault();
+    this.itemView.addItem();
   }
 });
 
