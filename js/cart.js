@@ -13,7 +13,13 @@ var Item = Backbone.Model.extend({
 });
 
 var Cart = Backbone.Collection.extend({
-  model: Item
+  model: Item,
+  initialize: function() {
+    this.on("add", this.updateSet, this);
+  },
+  updateSet: function() {
+    items = this.models;
+  }
 });
 
 var items = [
@@ -42,13 +48,13 @@ var ItemCollectionView = Backbone.View.extend({
   initialize: function() {
     this.collection = cartCollection;
     this.render();
+    this.collection.on("reset", this.render, this);
   },
   render: function() {
     this.$el.html("");
     this.collection.each(function(item) {
       this.renderItem(item);
     }, this);
-    this.collection.on("reset", this.render, this);
   },
   renderItem: function(item) {
     var itemView = new ItemView({model: item});
