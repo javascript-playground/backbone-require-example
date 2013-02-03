@@ -6,13 +6,21 @@
   </head>
   <body>
     <form id="add">
-
       <label>Title</label>
       <input id="title" type="text" />
       <label>Price</label>
       <input id="price" type="text" />
       <input type="submit" value="save" />
     </form>
+
+    <form id="filter">
+      <label>Less Than</label>
+      <input type="text" id="less-than" />
+      <input type="submit" value="Filter" />
+    </form>
+
+    <a href="#" id="clear-filter">Clear Filter</a>
+
     <div id="yourcart"></div>
     <script id="itemTemplate" type="text/template">
       <img src="<%= photo %>" alt="<%= title %>">
