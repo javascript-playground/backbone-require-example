@@ -1,4 +1,4 @@
-define(["lib/backbone", "views/itemview"], function(Backbone, ItemView) {
+define(["lib/backbone", "models/item", "views/itemview"], function(Backbone, Item, ItemView) {
   var ItemCollectionView = Backbone.View.extend({
     el: '#yourcart',
     initialize: function(collection) {

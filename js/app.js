@@ -1,13 +1,13 @@
 require.config({
+  paths: {
+    'jquery': 'lib/jquery'
+  },
   shim: {
-    'lib/jquery': {
-      exports: '$'
-    },
     'lib/underscore': {
       exports: '_'
     },
     'lib/backbone': {
-      deps: ["lib/underscore", "lib/jquery"],
+      deps: ["lib/underscore", "jquery"],
       exports: 'Backbone'
     }
   }
@@ -21,7 +21,7 @@ var items = [
   { title: "Cinema Display", price: 799 }
 ];
 require(
-  ["lib/jquery",
+  ["jquery",
     "lib/underscore",
     "lib/backbone",
     "views/cartcollectionview"
