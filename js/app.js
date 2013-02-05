@@ -1,5 +1,8 @@
 require.config({
   shim: {
+    'lib/jquery': {
+      exports: '$'
+    },
     'lib/underscore': {
       exports: '_'
     },
@@ -24,7 +27,9 @@ require(
     "views/cartcollectionview"
   ],
   function($, _, B, CartCollectionView) {
-    var app = new CartCollectionView(items);
+    $(function() {
+      new CartCollectionView(items);
+    });
   }
 );
 
